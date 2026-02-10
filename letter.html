@@ -1,0 +1,178 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>Love Letter</title>
+
+    <link
+      href="https://fonts.googleapis.com/css2?family=Playfair+Display&family=Inter&display=swap"
+      rel="stylesheet"
+    />
+
+    <style>
+      body {
+        margin: 0;
+        font-family: Inter, sans-serif;
+        background: linear-gradient(180deg, #ffeef5, #f7d9e5);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        height: 100vh;
+      }
+
+      /* Envelope container */
+      .scene {
+        position: relative;
+        width: 360px;
+        height: 260px;
+      }
+
+      /* Envelope body */
+      .envelope {
+        position: absolute;
+        bottom: 0;
+        width: 100%;
+        height: 180px;
+        background: #f2f2f2;
+        border-radius: 18px;
+        box-shadow: 0 20px 50px rgba(0, 0, 0, 0.2);
+      }
+
+      /* Flap */
+      .flap {
+        position: absolute;
+        top: 0;
+        width: 100%;
+        height: 120px;
+        background: #e16493;
+        clip-path: polygon(0 0, 100% 0, 50% 100%);
+        transform-origin: top;
+        transition: transform 0.7s ease;
+        z-index: 3;
+      }
+
+      /* Letter card */
+      .letter {
+        position: absolute;
+        width: 280px;
+        left: 40px;
+        bottom: 30px;
+        background: white;
+        border-radius: 16px;
+        padding: 20px;
+        text-align: center;
+        transform: translateY(80px);
+        transition: transform 0.8s ease;
+        box-shadow: 0 12px 28px rgba(0, 0, 0, 0.18);
+      }
+
+      /* Open animation */
+      .scene.open .flap {
+        transform: rotateX(180deg);
+      }
+
+      .scene.open .letter {
+        transform: translateY(-120px);
+      }
+
+      /* Polaroid photo */
+      .polaroid {
+        background: white;
+        padding: 6px 6px 14px;
+        border-radius: 10px;
+        box-shadow: 0 6px 14px rgba(0, 0, 0, 0.2);
+        width: 90px;
+        margin: 0 auto 12px;
+      }
+
+      .polaroid img {
+        width: 100%;
+        border-radius: 6px;
+      }
+
+      /* Letter text */
+      #typewriter {
+        font-family: "Playfair Display", serif;
+        font-size: 15px;
+        color: #333;
+        line-height: 1.5;
+      }
+
+      /* Proposal */
+      .proposal {
+        margin-top: 12px;
+        display: none;
+      }
+
+      .ring {
+        font-size: 36px;
+        animation: bounce 1s infinite;
+      }
+
+      @keyframes bounce {
+        50% {
+          transform: translateY(-6px);
+        }
+      }
+
+      button {
+        margin-top: 12px;
+        padding: 8px 14px;
+        border: none;
+        border-radius: 12px;
+        background: #e9a7bf;
+        cursor: pointer;
+      }
+    </style>
+  </head>
+
+  <body>
+    <div class="scene" id="scene">
+      <div class="flap"></div>
+      <div class="envelope"></div>
+
+      <div class="letter">
+        <div class="polaroid">
+          <img src="photo.jpg" onerror="this.style.display = 'none'" />
+        </div>
+
+        <div id="typewriter"></div>
+
+        <div class="proposal" id="proposal">
+          <div class="ring">💍</div>
+          <p>Will you stay with me forever?</p>
+        </div>
+
+        <button onclick="location.href = 'gallery.html'">Next →</button>
+      </div>
+    </div>
+
+    <script>
+      const scene = document.getElementById("scene");
+      const proposal = document.getElementById("proposal");
+
+      const text =
+        "You are my calm, my chaos, my happiness. Every moment with you feels like magic. I would choose you again and again.";
+
+      let i = 0;
+
+      function typeWriter() {
+        if (i < text.length) {
+          document.getElementById("typewriter").innerHTML += text.charAt(i);
+          i++;
+          setTimeout(typeWriter, 28);
+        }
+      }
+
+      scene.addEventListener("click", () => {
+        scene.classList.add("open");
+        typeWriter();
+
+        setTimeout(() => {
+          proposal.style.display = "block";
+        }, 2200);
+      });
+    </script>
+  </body>
+</html>
