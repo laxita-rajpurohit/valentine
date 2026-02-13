@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width,initial-scale=1" />
-    <title>Our Story</title>
+    <title>Forever</title>
 
     <link
       href="https://fonts.googleapis.com/css2?family=Playfair+Display&family=Inter&display=swap"
@@ -18,7 +18,8 @@
         display: flex;
         align-items: center;
         justify-content: center;
-        min-height: 100vh;
+        height: 100vh;
+        overflow: hidden;
       }
 
       /* floating hearts */
@@ -27,7 +28,7 @@
         bottom: -20px;
         color: #ff7aa8;
         animation: float 9s linear infinite;
-        opacity: 0.5;
+        opacity: 0.6;
       }
 
       @keyframes float {
@@ -39,14 +40,15 @@
         }
       }
 
-      /* main card */
+      /* card */
       .card {
         width: 90%;
-        max-width: 700px;
+        max-width: 420px;
         background: rgba(255, 255, 255, 0.75);
         backdrop-filter: blur(16px);
         border-radius: 28px;
         padding: 36px;
+        text-align: center;
         box-shadow: 0 30px 60px rgba(0, 0, 0, 0.15);
         animation: fadeIn 1s ease;
       }
@@ -54,7 +56,7 @@
       @keyframes fadeIn {
         from {
           opacity: 0;
-          transform: translateY(20px);
+          transform: translateY(25px);
         }
         to {
           opacity: 1;
@@ -62,51 +64,47 @@
         }
       }
 
-      h2 {
-        text-align: center;
+      h1 {
         font-family: "Playfair Display", serif;
-        margin-bottom: 28px;
+        margin-bottom: 10px;
       }
 
-      /* timeline */
-      .timeline {
-        border-left: 3px solid #ff9bb8;
-        padding-left: 18px;
-      }
-
-      .event {
+      .message {
+        color: #555;
         margin-bottom: 20px;
-        position: relative;
       }
 
-      .event::before {
-        content: "❤";
-        position: absolute;
-        left: -14px;
-        top: 0;
+      button {
+        padding: 12px 18px;
+        border: none;
+        border-radius: 22px;
+        margin: 8px;
+        cursor: pointer;
+        font-size: 15px;
       }
 
-      .title {
-        font-weight: 600;
-        color: #444;
+      .yes {
+        background: linear-gradient(90deg, #ff8fb1, #ff6f9f);
+        color: white;
       }
 
-      .desc {
-        color: #666;
-        margin-top: 4px;
+      .no {
+        background: white;
+        border: 2px solid #ff8fb1;
+        color: #ff6f9f;
       }
 
-      .footer {
-        margin-top: 28px;
-        text-align: center;
+      #result {
+        margin-top: 18px;
+        display: none;
+        font-size: 18px;
         font-family: "Playfair Display", serif;
-        font-size: 20px;
-        color: #444;
       }
     </style>
   </head>
 
   <body>
+    <!-- floating hearts -->
     <div class="heart" style="left: 10%">❤</div>
     <div class="heart" style="left: 30%">❤</div>
     <div class="heart" style="left: 50%">❤</div>
@@ -114,34 +112,29 @@
     <div class="heart" style="left: 90%">❤</div>
 
     <div class="card">
-      <h2>Our Story</h2>
-
-      <div class="timeline">
-        <div class="event">
-          <div class="title">First Hello</div>
-          <div class="desc">
-            The day everything quietly began — 23 June 2025.
-          </div>
-        </div>
-
-        <div class="event">
-          <div class="title">First Laugh Together</div>
-          <div class="desc">
-            Lalbaugh — 1 September, one of my favorite memories.
-          </div>
-        </div>
-
-        <div class="event">
-          <div class="title">Today</div>
-          <div class="desc">Still choosing you. Still grateful for us.</div>
-        </div>
+      <h1>Before this ends…</h1>
+      <div class="message">
+        No matter where life takes us, I will always choose you.
       </div>
 
-      <div class="footer">Happy Valentine's Day ❤</div>
+      <h2>Will you be mine forever? 💍</h2>
 
-      <button onclick="location.href = 'final.html'" class="nextBtn">
-        Next →
-      </button>
+      <button class="yes" onclick="sayYes()">Yes ❤</button>
+      <button class="no" onclick="moveNo(this)">No</button>
+
+      <div id="result">Forever starts today ❤️</div>
     </div>
+
+    <script>
+      function sayYes() {
+        document.getElementById("result").style.display = "block";
+      }
+
+      function moveNo(btn) {
+        btn.style.position = "absolute";
+        btn.style.top = Math.random() * 80 + "%";
+        btn.style.left = Math.random() * 80 + "%";
+      }
+    </script>
   </body>
 </html>
