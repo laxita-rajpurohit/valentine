@@ -7,9 +7,38 @@
 
     <link rel="stylesheet" href="style.css" />
     <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+
+    <style>
+      .heart {
+        position: fixed;
+        bottom: -20px;
+        color: #ff7aa8;
+        font-size: 18px;
+        animation: floatUp 8s linear infinite;
+        opacity: 0.6;
+        pointer-events: none;
+      }
+
+      @keyframes floatUp {
+        from {
+          transform: translateY(0) scale(0.7);
+        }
+        to {
+          transform: translateY(-120vh) scale(1.2);
+        }
+      }
+    </style>
   </head>
 
   <body>
+    <!-- floating hearts -->
+    <div class="heart" style="left: 10%; animation-delay: 0s">❤</div>
+    <div class="heart" style="left: 25%; animation-delay: 2s">❤</div>
+    <div class="heart" style="left: 40%; animation-delay: 4s">❤</div>
+    <div class="heart" style="left: 60%; animation-delay: 1s">❤</div>
+    <div class="heart" style="left: 80%; animation-delay: 3s">❤</div>
+    <div class="heart" style="left: 90%; animation-delay: 5s">❤</div>
+
     <audio autoplay loop>
       <source src="music.mp3" type="audio/mpeg" />
     </audio>
@@ -17,6 +46,7 @@
     <div class="card">
       <h1>Hey Harsh — will you be my Valentine?</h1>
       <p>I made this little surprise just for you ❤</p>
+
       <!-- Spotify player -->
       <iframe
         style="border-radius: 12px; margin-top: 16px"
@@ -25,12 +55,13 @@
         height="80"
         frameborder="0"
         allow="autoplay; clipboard-write; encrypted-media"
-      >
-      </iframe>
+      ></iframe>
+
       <div class="buttons">
         <button id="hanjiBtn" class="hanji">Hanji</button>
         <button id="nahiBtn" class="nahi">Nahi</button>
       </div>
+
       <h3 id="countdown"></h3>
     </div>
 
