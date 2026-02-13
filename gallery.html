@@ -47,7 +47,7 @@
         box-shadow: 0 30px 60px rgba(0, 0, 0, 0.15);
       }
 
-      /* polaroid gallery */
+      /* gallery */
       .gallery {
         display: grid;
         grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
@@ -56,7 +56,7 @@
 
       .polaroid {
         background: white;
-        padding: 8px 8px 20px;
+        padding: 8px 8px 16px;
         border-radius: 12px;
         box-shadow: 0 10px 24px rgba(0, 0, 0, 0.2);
         cursor: pointer;
@@ -74,34 +74,40 @@
         border-radius: 8px;
       }
 
-      /* lightbox */
-      #lightbox {
+      .caption {
+        font-size: 13px;
+        margin-top: 6px;
+        color: #555;
+      }
+
+      /* popup */
+      #popup {
         position: fixed;
         inset: 0;
-        background: rgba(0, 0, 0, 0.8);
+        background: rgba(0, 0, 0, 0.7);
         display: none;
         align-items: center;
         justify-content: center;
       }
 
-      #lightbox img {
-        max-width: 90%;
-        max-height: 80%;
-        border-radius: 12px;
-      }
-
-      /* timeline */
-      .timeline {
-        margin-top: 40px;
-        text-align: left;
-      }
-
-      .memory {
+      .popup-card {
         background: white;
-        margin: 12px 0;
-        padding: 14px;
-        border-radius: 14px;
-        box-shadow: 0 6px 18px rgba(0, 0, 0, 0.15);
+        padding: 24px;
+        border-radius: 18px;
+        width: 300px;
+        text-align: center;
+        animation: pop 0.3s ease;
+      }
+
+      @keyframes pop {
+        from {
+          transform: scale(0.8);
+          opacity: 0;
+        }
+        to {
+          transform: scale(1);
+          opacity: 1;
+        }
       }
 
       button {
@@ -117,11 +123,6 @@
   </head>
 
   <body>
-    <!-- music -->
-    <audio autoplay loop>
-      <source src="music.mp3" type="audio/mpeg" />
-    </audio>
-
     <!-- hearts -->
     <div class="heart" style="left: 10%">❤</div>
     <div class="heart" style="left: 30%">❤</div>
@@ -132,46 +133,76 @@
     <div class="card">
       <h2>Our Memories 📸</h2>
 
-      <div class="gallery" id="gallery">
-        <div class="polaroid"><img src="photos/mainphoto.jpeg" /></div>
-        <div class="polaroid"><img src="photos/photo1.jpeg" /></div>
-        <div class="polaroid"><img src="photos/photo4.jpeg" /></div>
-        <div class="polaroid"><img src="photos/photo5.jpeg" /></div>
-        <div class="polaroid"><img src="photos/photo2.jpeg" /></div>
-        <div class="polaroid"><img src="photos/photo3.jpeg" /></div>
+      <div class="gallery">
+        <div
+          class="polaroid"
+          data-text="This was one of my best decision of life to start my forever journey with you ❤️"
+        >
+          <img src="photos/mainphoto.jpeg" />
+          <div class="caption">Our First photo</div>
+        </div>
+
+        <div
+          class="polaroid"
+          data-text="I still remember this moment so clearly ✨"
+        >
+          <img src="photos/photo1.jpeg" />
+          <div class="caption">Beautiful day</div>
+        </div>
+
+        <div class="polaroid" data-text="You looked so happy here 😊">
+          <img src="photos/photo4.jpeg" />
+          <div class="caption">Your smile</div>
+        </div>
+
+        <div
+          class="polaroid"
+          data-text="One of my happiest memories with you 💕"
+        >
+          <img src="photos/photo5.jpeg" />
+          <div class="caption">Together</div>
+        </div>
+
+        <div
+          class="polaroid"
+          data-text="I wish we could relive this day again 💫"
+        >
+          <img src="photos/photo2.jpeg" />
+          <div class="caption">Special moment</div>
+        </div>
+
+        <div
+          class="polaroid"
+          data-text="Every memory with you is my favorite ❤️"
+        >
+          <img src="photos/photo3.jpeg" />
+          <div class="caption">Forever memory</div>
+        </div>
       </div>
 
       <button onclick="location.href = 'story.html'">Next →</button>
     </div>
 
-    <!-- lightbox -->
-    <div id="lightbox">
-      <img id="lightboxImg" />
+    <!-- popup -->
+    <div id="popup">
+      <div class="popup-card">
+        <p id="popupText"></p>
+      </div>
     </div>
 
     <script>
-      const images = document.querySelectorAll(".polaroid img");
-      const lightbox = document.getElementById("lightbox");
-      const lightboxImg = document.getElementById("lightboxImg");
+      const cards = document.querySelectorAll(".polaroid");
+      const popup = document.getElementById("popup");
+      const popupText = document.getElementById("popupText");
 
-      let index = 0;
-
-      /* lightbox */
-      images.forEach((img, i) => {
-        img.onclick = () => {
-          index = i;
-          lightbox.style.display = "flex";
-          lightboxImg.src = img.src;
+      cards.forEach((card) => {
+        card.onclick = () => {
+          popup.style.display = "flex";
+          popupText.innerText = card.dataset.text;
         };
       });
 
-      lightbox.onclick = () => (lightbox.style.display = "none");
-
-      /* auto slideshow */
-      setInterval(() => {
-        index = (index + 1) % images.length;
-        lightboxImg.src = images[index].src;
-      }, 3000);
+      popup.onclick = () => (popup.style.display = "none");
     </script>
   </body>
 </html>
