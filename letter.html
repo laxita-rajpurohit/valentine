@@ -6,152 +6,151 @@
     <title>Love Letter</title>
 
     <link
-      href="https://fonts.googleapis.com/css2?family=Playfair+Display&family=Inter&display=swap"
+      href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500&family=Inter&display=swap"
       rel="stylesheet"
     />
 
     <style>
       body {
         margin: 0;
-        font-family: Inter, sans-serif;
-        background: linear-gradient(180deg, #ffeef5, #f7d9e5);
+        height: 100vh;
         display: flex;
         align-items: center;
         justify-content: center;
-        height: 100vh;
+        font-family: Inter, sans-serif;
+        background: linear-gradient(135deg, #ffeef5, #ffd6e7, #ffeef5);
+        overflow: hidden;
       }
 
-      /* Envelope container */
-      .scene {
-        position: relative;
-        width: 360px;
-        height: 260px;
-      }
-
-      /* Envelope body */
-      .envelope {
+      /* Floating hearts */
+      .heart {
         position: absolute;
-        bottom: 0;
-        width: 100%;
-        height: 180px;
-        background: #f2f2f2;
-        border-radius: 18px;
-        box-shadow: 0 20px 50px rgba(0, 0, 0, 0.2);
+        color: #ff7aa8;
+        animation: float 8s linear infinite;
+        opacity: 0.6;
       }
 
-      /* Flap */
-      .flap {
-        position: absolute;
-        top: 0;
-        width: 100%;
-        height: 120px;
-        background: #e16493;
-        clip-path: polygon(0 0, 100% 0, 50% 100%);
-        transform-origin: top;
-        transition: transform 0.7s ease;
-        z-index: 3;
+      @keyframes float {
+        from {
+          transform: translateY(100vh) scale(0.6);
+        }
+        to {
+          transform: translateY(-10vh) scale(1.2);
+        }
       }
 
-      /* Letter card */
-      .letter {
-        position: absolute;
-        width: 280px;
-        left: 40px;
-        bottom: 30px;
-        background: white;
-        border-radius: 16px;
-        padding: 20px;
+      /* Card container */
+      .card {
+        width: 320px;
+        background: rgba(255, 255, 255, 0.7);
+        backdrop-filter: blur(18px);
+        border-radius: 24px;
+        padding: 30px;
         text-align: center;
-        transform: translateY(80px);
-        transition: transform 0.8s ease;
-        box-shadow: 0 12px 28px rgba(0, 0, 0, 0.18);
+        box-shadow: 0 30px 60px rgba(0, 0, 0, 0.15);
+        transform: translateY(40px);
+        opacity: 0;
+        animation: reveal 1.2s ease forwards;
       }
 
-      /* Open animation */
-      .scene.open .flap {
-        transform: rotateX(180deg);
+      @keyframes reveal {
+        to {
+          transform: translateY(0);
+          opacity: 1;
+        }
       }
 
-      .scene.open .letter {
-        transform: translateY(-120px);
-      }
-
-      /* Polaroid photo */
-      .polaroid {
-        background: white;
-        padding: 6px 6px 14px;
-        border-radius: 10px;
-        box-shadow: 0 6px 14px rgba(0, 0, 0, 0.2);
+      .photo {
         width: 90px;
-        margin: 0 auto 12px;
+        height: 90px;
+        border-radius: 14px;
+        object-fit: cover;
+        box-shadow: 0 8px 18px rgba(0, 0, 0, 0.2);
+        margin-bottom: 18px;
       }
 
-      .polaroid img {
-        width: 100%;
-        border-radius: 6px;
-      }
-
-      /* Letter text */
-      #typewriter {
+      .text {
         font-family: "Playfair Display", serif;
-        font-size: 15px;
+        font-size: 16px;
         color: #333;
-        line-height: 1.5;
+        line-height: 1.6;
+        min-height: 70px;
       }
 
-      /* Proposal */
       .proposal {
-        margin-top: 12px;
-        display: none;
+        margin-top: 14px;
+        opacity: 0;
+        transition: opacity 1s ease;
+      }
+
+      .proposal.show {
+        opacity: 1;
       }
 
       .ring {
         font-size: 36px;
-        animation: bounce 1s infinite;
+        animation: glow 1.5s infinite alternate;
       }
 
-      @keyframes bounce {
-        50% {
-          transform: translateY(-6px);
+      @keyframes glow {
+        from {
+          transform: scale(1);
+        }
+        to {
+          transform: scale(1.1);
         }
       }
 
+      .question {
+        margin-top: 10px;
+        font-size: 20px;
+        font-weight: 500;
+      }
+
       button {
-        margin-top: 12px;
-        padding: 8px 14px;
+        margin-top: 16px;
+        padding: 10px 20px;
         border: none;
-        border-radius: 12px;
-        background: #e9a7bf;
+        border-radius: 20px;
+        background: linear-gradient(90deg, #ff8fb1, #ff6f9f);
+        color: white;
+        font-size: 15px;
         cursor: pointer;
+        box-shadow: 0 6px 18px rgba(255, 105, 150, 0.4);
+        transition: transform 0.2s ease;
+      }
+
+      button:hover {
+        transform: scale(1.05);
       }
     </style>
   </head>
 
   <body>
-    <div class="scene" id="scene">
-      <div class="flap"></div>
-      <div class="envelope"></div>
+    <!-- floating hearts -->
+    <div class="heart" style="left: 10%; animation-delay: 0s">❤</div>
+    <div class="heart" style="left: 30%; animation-delay: 2s">❤</div>
+    <div class="heart" style="left: 60%; animation-delay: 4s">❤</div>
+    <div class="heart" style="left: 80%; animation-delay: 1s">❤</div>
 
-      <div class="letter">
-        <div class="polaroid">
-          <img src="photo.jpg" onerror="this.style.display = 'none'" />
-        </div>
+    <div class="card">
+      <img
+        src="photo.jpg"
+        class="photo"
+        onerror="this.style.display = 'none'"
+      />
 
-        <div id="typewriter"></div>
+      <div class="text" id="typewriter"></div>
 
-        <div class="proposal" id="proposal">
-          <div class="ring">💍</div>
-          <p>Will you stay with me forever?</p>
-        </div>
-
-        <button onclick="location.href = 'gallery.html'">Next →</button>
+      <div class="proposal" id="proposal">
+        <div class="ring">💍</div>
+        <div class="question">Will you stay with me forever?</div>
       </div>
+
+      <button onclick="location.href = 'gallery.html'">Next →</button>
     </div>
 
     <script>
-      const scene = document.getElementById("scene");
-      const proposal = document.getElementById("proposal");
-
       const text =
         "You are my calm, my chaos, my happiness. Every moment with you feels like magic. I would choose you again and again.";
 
@@ -161,18 +160,13 @@
         if (i < text.length) {
           document.getElementById("typewriter").innerHTML += text.charAt(i);
           i++;
-          setTimeout(typeWriter, 28);
+          setTimeout(typeWriter, 25);
+        } else {
+          document.getElementById("proposal").classList.add("show");
         }
       }
 
-      scene.addEventListener("click", () => {
-        scene.classList.add("open");
-        typeWriter();
-
-        setTimeout(() => {
-          proposal.style.display = "block";
-        }, 2200);
-      });
+      setTimeout(typeWriter, 800);
     </script>
   </body>
 </html>
